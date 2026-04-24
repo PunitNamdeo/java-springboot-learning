@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ================================================================
+     ANNOTATED pom.xml EXAMPLE
+     This file shows all important sections of a Spring Boot pom.xml
+     with detailed comments explaining each part.
+================================================================ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Always 4.0.0 for Maven 2+ -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- STEP 1: Inherit from Spring Boot parent
+         This gives you:
+         - Managed versions for 300+ common dependencies
+         - Default compiler settings (Java version)
+         - Default plugin configurations
+         - No need to specify versions for Spring dependencies
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/> <!-- lookup from Maven Central -->
+    </parent>
+
+    <!-- STEP 2: Your project's GAV coordinates
+         groupId    = reverse domain (com.yourcompany)
+         artifactId = project name (lowercase-with-hyphens)
+         version    = semantic versioning (MAJOR.MINOR.PATCH)
+    -->
+    <groupId>com.punit.learn</groupId>
+    <artifactId>java-springboot-learning</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>Java Spring Boot Learning</name>
+    <description>Zero to Hero Java and Spring Boot Learning Project</description>
+
+    <!-- STEP 3: Properties — define reusable values -->
+    <properties>
+        <java.version>17</java.version>        <!-- Java compiler version -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- STEP 4: Dependencies — add libraries your project needs -->
+    <dependencies>
+
+        <!-- WEB: Build REST APIs (includes Jackson, Tomcat, Spring MVC) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- JPA: Database access with Hibernate ORM -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- VALIDATION: @Valid, @NotNull, @Size etc. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- SECURITY: Authentication and Authorization -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- ACTUATOR: /health, /metrics, /info endpoints -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- H2: In-memory database (great for development/testing) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- MySQL: Use for production (comment out H2 above) -->
+        <!--
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        -->
+
+        <!-- LOMBOK: Reduces boilerplate code
+             @Getter, @Setter, @Builder, @RequiredArgsConstructor etc.
+        -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- DEVTOOLS: Hot reload — restarts app on code change -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- SPRINGDOC: Swagger UI + OpenAPI documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <!-- JWT: JSON Web Token support -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.3</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- TEST: JUnit 5 + Mockito + MockMvc (scope=test means
+             these are only available in src/test/java) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- STEP 5: Build plugins -->
+    <build>
+        <plugins>
+            <!-- Spring Boot Plugin: creates executable fat JAR
+                 mvn spring-boot:run  → runs the app
+                 mvn package         → creates executable JAR
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
